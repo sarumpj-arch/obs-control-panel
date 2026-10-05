@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>OBS Control Panel</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div><strong>OBS CONTROL</strong><small>GitHub Pages Edition</small></div>
+      <span id="status" class="status">● OFFLINE</span>
+    </header>
+
+    <section class="connection card">
+      <label>OBS WebSocket<input id="obsUrl" value="ws://127.0.0.1:4455" /></label>
+      <label>รหัสผ่าน<input id="obsPassword" type="password" placeholder="รหัส OBS WebSocket" /></label>
+      <button id="connectButton" class="primary">เชื่อมต่อ OBS</button>
+    </section>
+
+    <nav class="tabs">
+      <button class="active" data-tab="speakers">🏷 ป้ายชื่อ</button>
+      <button data-tab="graphics">📜 กราฟิก</button>
+      <button data-tab="scenes">🎬 Scenes</button>
+      <button data-tab="setup">⚙ ตั้งค่า</button>
+    </nav>
+
+    <section id="speakers" class="tab-panel active">
+      <div class="section-head"><div><h1>ป้ายชื่อผู้บรรยาย</h1><p>แก้ข้อความ สี รูปแบบ และโลโก้แยกแต่ละช่อง</p></div><button id="hideLowerThird" class="danger">✕ ปิดป้ายชื่อ</button></div>
+      <div id="speakerList" class="speaker-list"></div>
+    </section>
+
+    <section id="graphics" class="tab-panel">
+      <div class="grid-two">
+        <article class="card control-card">
+          <h2>Ticker</h2>
+          <textarea id="tickerText" rows="4" placeholder="ข้อความวิ่งด้านล่าง"></textarea>
+          <div class="color-row"><label>สีแถบ<input id="tickerBackground" type="color" value="#d8191f" /></label><label>สีข้อความ<input id="tickerColor" type="color" value="#ffffff" /></label></div>
+          <div class="actions"><button id="showTicker" class="primary">▶ เปิด Ticker</button><button id="hideTicker">ปิด</button></div>
+        </article>
+        <article class="card control-card">
+          <h2>Timer</h2>
+          <div id="timerReadout" class="timer-readout">00:00</div>
+          <label>ตำแหน่ง<select id="timerPosition"><option value="top-left">มุมซ้ายบน</option><option value="top-right">มุมขวาบน</option><option value="bottom-left">มุมซ้ายล่าง</option><option value="bottom-right">มุมขวาล่าง</option></select></label>
+          <div class="color-row"><label>สีพื้น<input id="timerBackground" type="color" value="#12141b" /></label><label>สีตัวเลข<input id="timerColor" type="color" value="#ffffff" /></label></div>
+          <div class="actions"><button id="toggleTimer" class="primary">▶ เริ่ม</button><button id="resetTimer">↺ รีเซ็ต</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="scenes" class="tab-panel">
+      <div class="section-head"><div><h1>Scenes และกล้อง</h1><p>กดเพื่อเปลี่ยน Scene หรือเปิดกล้องใน Scene ปัจจุบัน</p></div><button id="refreshScenes">↻ รีเฟรช</button></div>
+      <h2>Scenes</h2><div id="sceneList" class="button-grid"><span class="muted">เชื่อมต่อ OBS เพื่อโหลดรายการ</span></div>
+      <h2>กล้องใน Scene ปัจจุบัน</h2><div id="cameraList" class="button-grid"><button data-camera="Camera 1">Camera 1</button><button data-camera="Camera 2">Camera 2</button><button data-camera="Camera 3">Camera 3</button></div>
+    </section>
+
+    <section id="setup" class="tab-panel">
+      <article class="card setup-card">
+        <h2>เพิ่มเข้า OBS</h2>
+        <p><b>Custom Browser Dock URL</b></p><code id="dockUrl"></code>
+        <p><b>Browser Source URL (1920 × 1080)</b></p><code id="overlayUrl"></code>
+        <button id="installOverlay" class="primary">สร้าง/ซ่อม Browser Source ใน Scene ปัจจุบัน</button>
+        <p class="note">OBS → Tools → WebSocket Server Settings → เปิดใช้งาน Port 4455 จากนั้นกลับมากดเชื่อมต่อ</p>
+      </article>
+    </section>
+
+    <footer id="notice">พร้อมตั้งค่า</footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/obs-websocket-js@5"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
